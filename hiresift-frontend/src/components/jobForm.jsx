@@ -25,10 +25,7 @@ function JobForm() {
               ></button>
             </div>
             <div className="modal-body">
-                <Form name="e" 
-                fileUpload={false} 
-                date={true}
-                />
+                <Form />
             </div>
           </div>
         </div>

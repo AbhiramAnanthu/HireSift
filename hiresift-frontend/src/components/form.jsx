@@ -1,45 +1,32 @@
-function Form(props) {
-  const employeeForm = [
-    "JobTitle",
-    "Job Description",
+function Form() {
+  const FormTitle = [
+    "Job Title",
+    "Job description",
+    "Starting date",
+    "Ending date",
   ];
-  const applicantForm = [
-    "Applicant Name",
-    "Address",
-    "Phone Number",
-    "Email",
-    "Upload Resume",
-    "Write an essay for your application",
-  ];
-  function CheckForm({ name, TextArea }) {
-    let title = [];
-    if (name === "e") {
-      title = employeeForm;
-    } else {
-      title = applicantForm;
+  function CheckForm({ input }) {
+    if (input === "Job Title") {
+      return <input type="text" className="form-control" id={input} />;
+    } else if (input === "Job description") {
+      return <textarea type="text" className="form-control" id={input} />;
+    } else if (input === "Starting date" || input === "Ending date") {
+      return <input type="date" className="form-control" id={input} />;
     }
-
-    return (
-      <>
-        {title.map((item, index) => (
+  }
+  return (
+    <>
+      <form>
+        {FormTitle.map((item, index) => (
           <div className="row mb-3" key={index}>
             <label htmlFor={item} className="col-sm-2 col-form-label">
               {item}
             </label>
             <div className="col-sm-10">
-              <input type="text" className="form-control" id={item} />
+              <CheckForm input={item} />
             </div>
           </div>
         ))}
-      </>
-    );
-  }
-  return (
-    <>
-      <form>
-        <CheckForm 
-        name={props.name} 
-        />
         <div className="row mb-3">
           <div className="col-sm-10 offset-sm-2"></div>
         </div>
