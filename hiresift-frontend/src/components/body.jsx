@@ -1,4 +1,5 @@
 import JobForm from "./jobForm";
+import JobHistory from "./jobHistory";
 function Main() {
   return (
     <>
@@ -11,6 +12,7 @@ function Main() {
         Start New Session
       </button>
       <JobForm />
+      <JobHistory />
     </>
   );
 }
