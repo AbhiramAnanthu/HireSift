@@ -1,5 +1,16 @@
-import Form from "./form";
+import React from 'react';
+import Form from './form';// Assuming Form component is imported correctly
+
 function JobForm() {
+  const handleSubmitSuccess = () => {
+    // Handle modal closing logic here
+    const modalElement = document.getElementById('staticBackdrop');
+    const modal = bootstrap.Modal.getInstance(modalElement);
+    if (modal) {
+      modal.hide();
+    }
+  };
+
   return (
     <>
       <div
@@ -25,7 +36,7 @@ function JobForm() {
               ></button>
             </div>
             <div className="modal-body">
-                <Form />
+              <Form onSubmitSuccess={handleSubmitSuccess} />
             </div>
           </div>
         </div>
