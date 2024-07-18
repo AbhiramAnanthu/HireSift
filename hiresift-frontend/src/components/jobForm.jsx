@@ -1,9 +1,9 @@
 import React from 'react';
-import Form from './form';// Assuming Form component is imported correctly
+import Form from './form';
+import { Bootstrap } from 'react-bootstrap-icons';
 
 function JobForm() {
   const handleSubmitSuccess = () => {
-    // Handle modal closing logic here
     const modalElement = document.getElementById('staticBackdrop');
     const modal = bootstrap.Modal.getInstance(modalElement);
     if (modal) {

@@ -1,7 +1,7 @@
 import JobForm from "./jobForm";
 import JobHistory from "./jobHistory";
 function Main() {
-  return (
+    return (
     <>
       <button
         type="button"
