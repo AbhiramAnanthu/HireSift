@@ -1,5 +1,6 @@
 import JobForm from "./jobForm";
 import JobHistory from "./jobHistory";
+import CandidateForm from "./candidate";
 function Main() {
     return (
     <>

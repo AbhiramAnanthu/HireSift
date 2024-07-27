@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import {useNavigate} from 'react-router-dom';
+import Success from './success';
 
 function Form() {
+  let navigate=useNavigate()
   const [formData, setFormData] = useState({
     job_title: '',
     job_description: '',
@@ -20,13 +23,15 @@ function Form() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('http://localhost:8000', formData);
+      const response = await axios.post('http://localhost:8000/jobs/', formData);
+      const job_id = response.data.job_id; // Extract job_id from response data
+      const url = `/success?job_id=${job_id}`;
+      window.open(url, '_blank');  // Navigate to success page with job_id in state
     } catch (error) {
       console.error('Error submitting form:', error);
     }
-    
   };
-
+  
   return (
     <>
       <form onSubmit={handleSubmit}>
@@ -39,7 +44,7 @@ function Form() {
               type="text"
               className="form-control"
               id="job_title"
-              value={formData.jobTitle}
+              value={formData.job_title}
               onChange={handleChange}
             />
           </div>

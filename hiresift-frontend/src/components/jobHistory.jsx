@@ -7,7 +7,7 @@ function JobHistory() {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get("http://localhost:8000");
+        const response = await axios.get("http://127.0.0.1:8000/jobs/");
         setData(response.data); // Assuming response.data is an array of job history objects
       } catch (error) {
         console.error(`Error getting data: ${error}`);
