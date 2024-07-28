@@ -4,7 +4,6 @@ import {useNavigate} from 'react-router-dom';
 import Success from './success';
 
 function Form() {
-  let navigate=useNavigate()
   const [formData, setFormData] = useState({
     job_title: '',
     job_description: '',

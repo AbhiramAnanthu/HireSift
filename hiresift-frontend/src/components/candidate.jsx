@@ -2,32 +2,46 @@ import React from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
+import { useLocation } from "react-router-dom";
 
 function CandidateForm() {
+  const location=useLocation();
+  const path=location.search;
+  const id=path.slice(8);
   const template = {
     first_name: "",
     last_name: "",
     address: "",
-    resume: "",
+    resume:null,
     appl_email: "",
     appl_phone: "",
     appl_essay: "",
+    job_id:id,
   };
   const [formData, setFormData] = useState(template);
 
   const handleChange = (e) => {
-    const { id, value } = e.target;
+    const { id, value,files } = e.target;
     setFormData({
       ...formData,
-      [id]: value,
+      [id]:files ? files[0]: value,
     });
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
+    const data = new FormData();
+    for (const key in formData) {
+      data.append(key, formData[key]);
+    }
     try {
       const response = await axios.post(
         "http://127.0.0.1:8000/candidates/",
-        formData
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
       );
     } catch (error) {
       console.error("Error submitting form:", error);
@@ -42,7 +56,7 @@ function CandidateForm() {
                 <h4>Candidate Form</h4>
               </div>
               <div className="card-body">
-                <form onSubmit={handleSubmit}>
+                <form onSubmit={handleSubmit} encType="multipart/form-data">
                   <div className="row mb-3">
                     <label
                       htmlFor="firstName"
@@ -54,7 +68,7 @@ function CandidateForm() {
                       <input
                         type="text"
                         className="form-control"
-                        id="firstName"
+                        id="first_name"
                         value={formData.first_name}
                         onChange={handleChange}
                       />
@@ -62,7 +76,7 @@ function CandidateForm() {
                   </div>
                   <div className="row mb-3">
                     <label
-                      htmlFor="lastName"
+                      htmlFor="last_name"
                       className="col-sm-2 col-form-label"
                     >
                       Last Name
@@ -71,7 +85,7 @@ function CandidateForm() {
                       <input
                         type="text"
                         className="form-control"
-                        id="lastName"
+                        id="last_name"
                         value={formData.last_name}
                         onChange={handleChange}
                       />
@@ -101,7 +115,7 @@ function CandidateForm() {
                       <input
                         type="tel"
                         className="form-control"
-                        id="phone"
+                        id="appl_phone"
                         value={formData.appl_phone}
                         onChange={handleChange}
                       />
@@ -115,7 +129,7 @@ function CandidateForm() {
                       <input
                         type="email"
                         className="form-control"
-                        id="email"
+                        id="appl_email"
                         value={formData.appl_email}
                         onChange={handleChange}
                       />
@@ -130,7 +144,6 @@ function CandidateForm() {
                         type="file"
                         className="form-control"
                         id="resume"
-                        value={formData.resume}
                         onChange={handleChange}
                       />
                     </div>
@@ -142,7 +155,7 @@ function CandidateForm() {
                     <div className="col-sm-10">
                       <textarea
                         className="form-control"
-                        id="essay"
+                        id="appl_essay"
                         value={formData.appl_essay}
                         onChange={handleChange}
                       ></textarea>
