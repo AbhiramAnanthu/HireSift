@@ -4,7 +4,7 @@ import axios from "axios";
 import { json, Link } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-function PromptForm(props) {
+function PromptForm(props,{changeOrder}) {
   let result;
   const [data,setData] = useState();
   const [userInput,setUserInput] = useState({
@@ -31,7 +31,7 @@ function PromptForm(props) {
     } catch(error){
         console.log("error getting output",error);
     }
-    console.log(data);
+    
   }
   return (
     <>
