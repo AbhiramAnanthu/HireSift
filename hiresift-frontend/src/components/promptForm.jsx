@@ -8,7 +8,7 @@ function PromptForm(props,{changeOrder}) {
   let result;
   const [data,setData] = useState();
   const [userInput,setUserInput] = useState({
-    user_input:"",
+    text:'',
     id:`${props.id}`,
   })
   const handleChange = (e) => {
@@ -24,6 +24,7 @@ function PromptForm(props,{changeOrder}) {
         const response = await axios.get(`http://localhost:8000/working/`,{
             params:userInput
         });
+        console.log(response.data);
         if(response){
             const encodeData = encodeURIComponent(JSON.stringify(response.data));
             const newTab = window.open(`/candidate-sorted-list?data=${encodeData}`,'__blank',"noopener,noreferrer");
@@ -70,12 +71,12 @@ function PromptForm(props,{changeOrder}) {
               </ul>
               <p>That's it, you can start filtering.</p>
               <form onSubmit={handlSubmit}>
-                <label htmlFor="user_input">Enter your prompt</label>
+                <label htmlFor="text">Enter your prompt</label>
                 <textarea
                   className="form-control mt-2"
-                  id="user_input"
+                  id="text"
                   rows="3"
-                  value={userInput.user_input}
+                  value={userInput.text}
                   onChange={handleChange}
                 ></textarea>
               </form>
